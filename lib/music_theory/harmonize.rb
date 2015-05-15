@@ -9,6 +9,8 @@ module MusicTheory
     end
 
     def samples
+      return @samples if @samples
+
       max_sample_array_length = @things_to_flatten.map(&:length).max
       @samples = Array.new(max_sample_array_length, 0)
 
