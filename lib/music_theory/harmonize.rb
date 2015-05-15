@@ -7,7 +7,7 @@ module MusicTheory
 
     def initialize(*things_to_flatten)
       @samples = []
-      [*things_to_flatten].each do |group|
+      things_to_flatten.each do |group|
         group.each_with_index do |value, i|
          @samples[i] ||= 0
          @samples[i] +=  value
