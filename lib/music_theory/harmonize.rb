@@ -6,11 +6,12 @@ module MusicTheory
     attr_accessor :samples
 
     def initialize(*things_to_flatten)
-      @samples = []
+      max_sample_array_length = things_to_flatten.map(&:length).max
+      @samples = Array.new(max_sample_array_length, 0)
+
       things_to_flatten.each do |group|
         group.each_with_index do |value, i|
-         @samples[i] ||= 0
-         @samples[i] +=  value
+          @samples[i] +=  value
         end
       end
 
