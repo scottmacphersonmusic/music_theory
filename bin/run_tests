@@ -1,0 +1,6 @@
+#! /usr/bin/env bash
+
+for f in ./test/*.rb
+do
+    ruby $f
+done
