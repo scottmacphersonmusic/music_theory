@@ -2,12 +2,19 @@ require 'test_helper'
 
 class TestNote < MiniTest::Test
   def setup
-    @note_1 = MusicTheory::Note.new(frequency: 220, duration: 2.0)
+    @frequency   = 220.to_f
+    @duration    = 2.0
+    @sample_rate = 22050
+    @note = MusicTheory::Note.new(frequency: @frequency, duration: @duration)
   end
 
   def test_total_frames
-    sample_rate = 22050
-    frames = (2.0 * sample_rate).to_i
-    assert_equal frames, @note_1.total_frames
+    frames = (@duration * @sample_rate).to_i
+    assert_equal frames, @note.total_frames
+  end
+
+  def test_cycles_per_frame
+    cycles_per_frame = @frequency / @sample_rate
+    assert_equal cycles_per_frame, @note.cycles_per_frame
   end
 end
