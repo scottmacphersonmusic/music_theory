@@ -23,4 +23,16 @@ class TestNote < MiniTest::Test
     assert_equal @note_220.total_frames, @note_220.samples.length
     assert_equal @distorted_note.total_frames, @distorted_note.samples.length
   end
+
+  def test_amplitude_range
+    @basic_note.samples.each do |sample|
+      assert sample.abs <= 1
+    end
+    @note_220.samples.each do |sample|
+      assert sample.abs <= 1
+    end
+    @distorted_note.samples.each do |sample|
+      assert sample.abs <= 1
+    end
+  end
 end
