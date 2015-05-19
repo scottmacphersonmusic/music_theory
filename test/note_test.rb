@@ -17,4 +17,10 @@ class TestNote < MiniTest::Test
     assert_equal @test_samples.length, @note_220.samples.length
     assert_equal @test_samples.length, @distorted_note.samples.length
   end
+
+  def test_number_of_frames_matches_number_of_samples
+    assert_equal @basic_note.total_frames, @basic_note.samples.length
+    assert_equal @note_220.total_frames, @note_220.samples.length
+    assert_equal @distorted_note.total_frames, @distorted_note.samples.length
+  end
 end
