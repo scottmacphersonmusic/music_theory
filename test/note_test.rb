@@ -9,7 +9,7 @@ class TestNote < MiniTest::Test
   end
 
   def test_samples_are_identical
-    assert_equal @test_samples, @basic_note.samples
+    assert compare_sample_arrays(@test_samples, @basic_note.samples) < (0.1 * (10 ** -10))
   end
 
   def test_number_of_samples_match
@@ -25,6 +25,8 @@ class TestNote < MiniTest::Test
   end
 
   def test_amplitude_range
+    # this doesn't look very DRY - private helper method?
+    # helper should take care of array examination and return one assertion
     @basic_note.samples.each do |sample|
       assert sample.abs <= 1
     end
@@ -34,5 +36,16 @@ class TestNote < MiniTest::Test
     @distorted_note.samples.each do |sample|
       assert sample.abs <= 1
     end
+  end
+
+  private
+
+  def compare_sample_arrays(array_1, array_2)
+    diff = 0
+    zipped = array_1.zip(array_2)
+    zipped.each do |item|
+      diff += (item[0] - item[1]).abs
+    end
+    diff
   end
 end
