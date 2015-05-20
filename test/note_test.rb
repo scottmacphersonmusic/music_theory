@@ -34,9 +34,8 @@ class TestNote < MiniTest::Test
 
   def sample_arrays_diff(array_1, array_2)
     diff = 0
-    zipped = array_1.zip(array_2)
-    zipped.each do |item|
-      diff += (item[0] - item[1]).abs
+    array_1.zip(array_2) do |sample_1, sample_2|
+      diff += (sample_1 - sample_2).abs
     end
     diff
   end
