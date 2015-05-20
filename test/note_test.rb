@@ -25,9 +25,9 @@ class TestNote < MiniTest::Test
   end
 
   def test_amplitude_range
-    assert each_array_item_less_than_1(@basic_note.samples)
-    assert each_array_item_less_than_1(@note_220.samples)
-    assert each_array_item_less_than_1(@distorted_note.samples)
+    assert @basic_note.samples.all? { |sample| sample.abs <= 1 }
+    assert @note_220.samples.all? { |sample| sample.abs <= 1 }
+    assert @distorted_note.samples.all? { |sample| sample.abs <= 1 }
   end
 
   private
@@ -38,15 +38,5 @@ class TestNote < MiniTest::Test
       diff += (sample_1 - sample_2).abs
     end
     diff
-  end
-
-  def each_array_item_less_than_1(samples_array)
-    less_than_1 = true
-    samples_array.each do |sample|
-      if sample.abs > 1
-        return less_than_1 = false
-      end
-    end
-    less_than_1
   end
 end
