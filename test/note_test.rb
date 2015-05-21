@@ -8,8 +8,10 @@ class TestNote < MiniTest::Test
     @distorted_note = MusicTheory::Note.new(distort: true)
   end
 
+  DIFF_THRESHOLD = 1.0e-12
+
   def test_samples_are_identical
-    assert sample_arrays_diff(@test_samples, @basic_note.samples) < (0.1 * (10 ** -10))
+    assert sample_arrays_diff(@test_samples, @basic_note.samples) < DIFF_THRESHOLD
   end
 
   def test_number_of_samples_match
