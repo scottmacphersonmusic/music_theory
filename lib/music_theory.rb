@@ -12,6 +12,7 @@ require "music_theory/arpeggio"
 require "music_theory/harmonize"
 require "music_theory/output"
 require "music_theory/play"
+require "music_theory/pitch"
 
 
 module MusicTheory
