@@ -3,9 +3,9 @@ require 'test_helper'
 class TestNote < MiniTest::Test
   def setup
     @test_samples = eval(File.read('test/fixtures/note_samples_array'))
-    @basic_note = MusicTheory::Note.new
-    @note_220 = MusicTheory::Note.new(frequency: 220)
-    @distorted_note = MusicTheory::Note.new(distort: true)
+    @basic_note     = MusicTheory::Note.new(frequency: 440, duration: 1.0, distort: false)
+    @note_220       = MusicTheory::Note.new(frequency: 220, duration: 1.0, distort: false)
+    @distorted_note = MusicTheory::Note.new(frequency: 440, duration: 1.0, distort: true)
   end
 
   DIFF_THRESHOLD = 1.0e-12
