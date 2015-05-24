@@ -5,10 +5,12 @@ require 'music_theory/pitch'
 module MusicTheory
   class Note
     include MusicTheory::Output
-    attr_accessor :frequency,  :duration, :output_file_name, :distort
+    attr_accessor :frequency, :pitch, :duration, :output_file_name, :distort
 
     def initialize(options = {})
-      @frequency        = interpret_frequency_or_pitch_object(options[:frequency])
+      @frequency        = options[:frequency] || 440.0          # Note frequency in Hz
+      @pitch            = options[:pitch]
+      @frequency        = pitch_object_frequency
       @duration         = options[:duration] ||  1.0            # Number of seconds per note
       @distort          = options[:distort] || false
       @output_file_name = options[:output_file_name] || 'note'  # File name to write (without extension)
@@ -55,16 +57,11 @@ module MusicTheory
 
     private
 
-    def interpret_frequency_or_pitch_object(frequency_option)
-      if frequency_option.class == Pitch
-        puts "its a Pitch object!!"
-        return frequency_option.frequency
-      elsif frequency_option == Float
-        return frequency_option
-      elsif frequency_option == Integer
-        return frequency_option.to_f
+    def pitch_object_frequency
+      if @pitch
+        @pitch.frequency
       else
-        return 440.0
+        @frequency.to_f
       end
     end
   end
