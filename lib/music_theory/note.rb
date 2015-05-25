@@ -9,7 +9,7 @@ module MusicTheory
 
     def initialize(options = {})
       @frequency        = options[:frequency] || 440.0          # Note frequency in Hz
-      @pitch            = options[:pitch]
+      @pitch            = options[:pitch]                       # ex:  Pitch.new(:D, 7)
       @frequency        = pitch_object_frequency
       @duration         = options[:duration] ||  1.0            # Number of seconds per note
       @distort          = options[:distort] || false
