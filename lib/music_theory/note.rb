@@ -41,6 +41,10 @@ module MusicTheory
       samples
     end
 
+    def envelope
+      # some function that filters amplitude over the duration of a given note
+    end
+
     def distort!(samples)
       samples.map do |sample|
         negative = sample < 0
@@ -52,7 +56,5 @@ module MusicTheory
         sample /= 8.to_f
       end
     end
-
   end
-
 end
