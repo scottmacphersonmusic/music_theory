@@ -9,8 +9,8 @@ module MusicTheory
 
     def initialize(options = {})
       @frequency        = options[:frequency] || 440.0          # Note frequency in Hz
-      @pitch            = options[:pitch]                       # ex:  Pitch.new(:D, 7)
-      @frequency        = pitch_object_frequency
+      @pitch            = options[:pitch]                       # ex: Pitch.new(:Fs, 4) -> (pitch, octave)
+      @frequency        = evaluate_frequency
       @duration         = options[:duration] ||  1.0            # Number of seconds per note
       @distort          = options[:distort] || false
       @output_file_name = options[:output_file_name] || 'note'  # File name to write (without extension)
@@ -57,7 +57,7 @@ module MusicTheory
 
     private
 
-    def pitch_object_frequency
+    def evaluate_frequency
       if @pitch
         @pitch.frequency
       else
