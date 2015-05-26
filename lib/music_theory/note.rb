@@ -8,9 +8,8 @@ module MusicTheory
     attr_accessor :frequency, :pitch, :duration, :output_file_name, :distort
 
     def initialize(options = {})
-      @frequency        = options[:frequency] || 440.0          # Note frequency in Hz
-      @pitch            = options[:pitch]                       # ex: Pitch.new(:Fs, 4) -> (pitch, octave)
-      @frequency        = evaluate_frequency
+      @frequency        = options[:pitch] ? options[:pitch].frequency
+                          : options[:frequency].to_f || 440     # pitch ex) Pitch.new(:Ds, 3)
       @duration         = options[:duration] ||  1.0            # Number of seconds per note
       @distort          = options[:distort] || false
       @output_file_name = options[:output_file_name] || 'note'  # File name to write (without extension)
@@ -52,16 +51,6 @@ module MusicTheory
           sample *= -1 if negative
         end
         sample /= 8.to_f
-      end
-    end
-
-    private
-
-    def evaluate_frequency
-      if @pitch
-        @pitch.frequency
-      else
-        @frequency.to_f
       end
     end
   end

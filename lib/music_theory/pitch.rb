@@ -57,11 +57,7 @@ class Pitch
 
   def prepare_note_for_offset_map(note)
     letter = note[0].upcase
-    accidental = if note[1] then
-                   note[1].downcase
-                 else
-                   ""
-                 end
+    accidental = note[1] ? note[1].downcase : ""
     "#{letter}#{accidental}".to_sym
   end
 end
