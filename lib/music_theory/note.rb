@@ -10,7 +10,7 @@ module MusicTheory
 
     def initialize(options = {})
       @frequency        = options[:pitch] ? options[:pitch].frequency
-                          : options[:frequency].to_f || 440     # pitch ex) Pitch.new(:Ds, 3)
+                          : options[:frequency].to_f || 440     # pitch ex: Pitch.new(:Ds, 3)
       @duration         = options[:duration] ||  1.0            # Number of seconds per note
       @distort          = options[:distort] || false
       @envelope         = options[:envelope]
@@ -41,6 +41,7 @@ module MusicTheory
         sample
       end
       samples = distort!(samples) if distort
+      samples = envelope!(samples) if envelope
       samples
     end
 
@@ -57,7 +58,10 @@ module MusicTheory
     end
 
     def envelope!(samples)
-      nil # fill-in after i've built the Envelope class
+      envelope_frames = @envelope.envelope_frames
+      zipped_frames = samples.zip(envelope_frames)
+      enveloped_samples = zipped_frames.map! { |i| i[0] * i[1] }
+      enveloped_samples
     end
   end
 end
