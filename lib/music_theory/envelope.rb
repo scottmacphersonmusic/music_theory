@@ -3,9 +3,9 @@ class Envelope
 
   def initialize(options = {})
     @duration = options[:duration]
-    @attack   = options[:attack]    # in seconds   ex: 0.15
-    @sustain  = options[:sustain]   # percentage   ex: 30
-    @decay    = options[:decay]     # percentage   ex: 60
+    @attack   = options[:attack]    # in seconds    ex: 0.15
+    @sustain  = options[:sustain]   # decimal between 0 and 1 ex: 0.2
+    @decay    = options[:decay]     # decimal between 0 and 1 ex: 0.6
     @sample_rate = 22050
     @total_frames = @sample_rate * @duration
   end
@@ -18,13 +18,13 @@ class Envelope
   end
 
   def sustain_frames
-    sustain_frames_count = (@total_frames - attack_frames.length) * (@sustain.to_f / 100.0)
+    sustain_frames_count = (@total_frames - attack_frames.length) * @sustain
     sustain_frames = Array.new(sustain_frames_count) { 1 }
     sustain_frames
   end
 
   def decay_frames
-    decay_frames_count = (@total_frames - attack_frames.length) * (@decay.to_f / 100.0)
+    decay_frames_count = (@total_frames - attack_frames.length) * @decay
     decay_rate = (1.0 / decay_frames_count)
     decay_frames = Array.new(decay_frames_count){ |index| index * decay_rate }.reverse
     decay_frames
@@ -34,7 +34,7 @@ class Envelope
     envelope_frames = attack_frames + sustain_frames + decay_frames
     if envelope_frames.length < @total_frames
       remainder = @total_frames - envelope_frames.length
-      filler = Array.new(remainder){ 0 }
+      filler = Array.new(remainder) { 0 }
       envelope_frames += filler
     end
     envelope_frames

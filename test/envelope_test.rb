@@ -7,8 +7,8 @@ class TestEnvelope < MiniTest::Test
                                            duration: duration,
                                            envelope: Envelope.new(duration: duration,
                                                                   attack:   0.15,
-                                                                  sustain:  10,
-                                                                  decay:    70),
+                                                                  sustain:  0.2,
+                                                                  decay:    0.6),
                                            output_file_name: 'delete_me')
   end
 
