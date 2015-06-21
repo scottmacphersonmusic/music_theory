@@ -6,6 +6,7 @@ class Envelope
     @attack   = options[:attack]    # in seconds    ex: 0.15
     @sustain  = options[:sustain]   # decimal between 0 and 1 ex: 0.2
     @decay    = options[:decay]     # decimal between 0 and 1 ex: 0.6
+              # sustain and decay represent portions of total duration less attack
     @sample_rate = 22050
     @total_frames = @sample_rate * @duration
   end
