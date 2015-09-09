@@ -14,7 +14,9 @@ class Envelope
   def attack_frames
     attack_frames_count = (@sample_rate * @attack).to_i
     growth_rate = (1.0 / attack_frames_count.to_f)
-    attack_frames = Array.new(attack_frames_count){ |index| index * growth_rate }
+    attack_frames = Array.new(attack_frames_count) do |index|
+      index * growth_rate
+    end
     attack_frames
   end
 

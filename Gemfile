@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in music_theory.gemspec
-gemspec
+ruby '2.2.3'
+
 gem 'minitest'
+gem 'rake'

@@ -1,5 +1,3 @@
-require 'wavefile'
-
 require "music_theory/version"
 require "music_theory/note"
 require "music_theory/octave"
@@ -15,7 +13,5 @@ require "music_theory/play"
 require "music_theory/pitch"
 require "music_theory/envelope"
 
-
 module MusicTheory
-
 end
