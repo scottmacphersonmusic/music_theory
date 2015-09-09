@@ -1,17 +1,19 @@
 # coding: utf-8
 require 'music_theory/output'
 require 'music_theory/pitch'
+require 'music_theory/envelope'
 
 module MusicTheory
   class Note
     include MusicTheory::Output
-    attr_accessor :frequency, :pitch, :duration, :output_file_name, :distort
+    attr_accessor :frequency, :pitch, :duration, :output_file_name, :distort, :envelope
 
     def initialize(options = {})
       @frequency        = options[:pitch] ? options[:pitch].frequency
-                          : options[:frequency].to_f || 440     # pitch ex) Pitch.new(:Ds, 3)
+                          : options[:frequency].to_f || 440     # pitch ex: Pitch.new(:Ds, 3)
       @duration         = options[:duration] ||  1.0            # Number of seconds per note
       @distort          = options[:distort] || false
+      @envelope         = options[:envelope]
       @output_file_name = options[:output_file_name] || 'note'  # File name to write (without extension)
     end
 
@@ -39,11 +41,12 @@ module MusicTheory
         sample
       end
       samples = distort!(samples) if distort
+      samples = envelope!(samples) if envelope
       samples
     end
 
     def distort!(samples)
-      samples.map do |sample|
+      samples.map! do |sample|
         negative = sample < 0
         sample *= 8.to_f
         if sample.abs > 5
@@ -52,6 +55,13 @@ module MusicTheory
         end
         sample /= 8.to_f
       end
+    end
+
+    def envelope!(samples)
+      envelope_frames = @envelope.envelope_frames
+      zipped_frames = samples.zip(envelope_frames)
+      enveloped_samples = zipped_frames.map! { |i| i[0] * i[1] }
+      enveloped_samples
     end
   end
 end
